@@ -1,20 +1,32 @@
 # Patbu
 
-Generalized path glob **pat**terns that are also **bu**ilders. The main idea is that all of the following expressions
+Generalized path glob **pat**terns that are also **bu**ilders. The main idea is that an expression like
 
-- `a/b/c.txt` -- the literal file `a/b/c.txt`
+<p align="center">
+<code>a/b/{x}.txt</code>
+</p>
 
-- `{year}-{month}-{day}.txt` -- for example `2023-01-01.txt`
+can be interpreted as a pattern or a template at the same time, for example the following expressions have the following intuitive meaning
 
-- `a/{var1}/c.txt` -- this won't match `a/b/b/c.txt` because the capture `{var1}` doesn't match `/`
+- `a/b/c.txt` corresponds to the literal file `a/b/c.txt`
 
-- `{*module}/package.json` -- the `*` modifier will also match `/`
+- `{year}-{month}-{day}.txt` will match something like `2023-01-20.txt`
 
-can be used to match _against a given pattern_ and return an optional dictionary of captures but _also as a path builder_ that is given a dictionary of bindings. This duality can be used to modify paths. For example using the provided CLI for this library we can do
+- `a/{var1}/c.txt` won't match `a/b/b/c.txt` because the capture `{var1}` doesn't match `/`, the equivalent is that this throws an error when used as a template and `var1` contains slashes.
+
+- `{*module}/package.json`, here the `*` modifier will also match `/`.
+
+so this syntax can be used to
+
+- match _against a given pattern_ and return a dictionary of captures
+
+- but _also as a path template or builder_  that is given a dictionary of bindings
+
+This duality can be used to modify paths for example. Using the provided CLI for this library we can do something like the following
 
 ```bash
-echo 'src/projects/go/patbu.html' 
-| patbu --stdin 'src/{*route}/{page}.html' 'dist/{*route}/{page}/index.html'
+echo 'blog/src/projects/go/patbu.html' 
+| patbu --stdin 'blog/src/{*route}/{page}.html' 'blog/dist/{*route}/{page}/index.html'
 ```
 
 ## Setup & Install
@@ -24,6 +36,8 @@ $ go build -v -o ./bin/patbu ./cmd/patbu
 $ go install -v ./cmd/patbu
 ```
 
-## Notes
+## Notes & Todos
 
 Other name ideas: blueprint, pathbp, template, patt
+
+Add some flags to use as a bulk rename utility
