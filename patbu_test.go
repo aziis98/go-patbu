@@ -3,8 +3,7 @@ package patbu_test
 import (
 	"testing"
 
-	"github.com/aziis98/patbu"
-
+	"github.com/aziis98/go-patbu"
 	"gotest.tools/assert"
 )
 
