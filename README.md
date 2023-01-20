@@ -2,17 +2,15 @@
 
 Generalized path glob **pat**terns that are also **bu**ilders. The main idea is that all of the following expressions
 
-<center>
-
-`a/b/c.txt` ~> the literal file "a/b/c.txt"
-
-`{year}-{month}-{day}.txt` ~> for example `2023-01-01.txt`
-
-`a/{var1}/c.txt` ~> this won't match `a/b/b/c.txt` because the capture `{var1}` doesn't match "slashes"
-
-`{*module}/package.json` ~> the `*` modifier will also match "slashes"
-
-</center>
+<p align="center">
+<code>a/b/c.txt</code> ~> the literal file "a/b/c.txt"
+<br>
+<code>{year}-{month}-{day}.txt</code> ~> for example `2023-01-01.txt`
+<br>
+<code>a/{var1}/c.txt</code> ~> this won't match `a/b/b/c.txt` because the capture `{var1}` doesn't match "slashes"
+<br>
+<code>{*module}/package.json</code> ~> the `*` modifier will also match "slashes"
+</p>
 
 can be used to match _against a given pattern_ and return an optional dictionary of captures but _also as a path builder_ that is given a dictionary of bindings. This duality can be used to modify paths. For example using the provided CLI for this library we can do
 
